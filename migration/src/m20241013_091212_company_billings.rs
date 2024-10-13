@@ -27,12 +27,16 @@ impl MigrationTrait for Migration {
                     .col(string_null(CompanyBillings::BillingSettlement))
                     .col(string_null(CompanyBillings::BillingStreet))
                     .col(string_null(CompanyBillings::BillingStreetNumber))
-                    .col(integer(CompanyBillings::CompanyId))
+                    .col(
+                        ColumnDef::new(CompanyBillings::CompanyIid)  // Foreign key column for internal_id
+                            .uuid()  // Defines it as a UUID type
+                            .not_null(),
+                    )
                     .foreign_key(
                         ForeignKey::create()
                             .name("fk-company_billings-companies")
-                            .from(CompanyBillings::Table, CompanyBillings::CompanyId)
-                            .to(Companies::Table, Companies::Id)
+                            .from(CompanyBillings::Table, CompanyBillings::CompanyIid)
+                            .to(Companies::Table, Companies::InternalId)
                             .on_delete(ForeignKeyAction::Cascade)
                             .on_update(ForeignKeyAction::Cascade),
                     )
@@ -62,7 +66,7 @@ enum CompanyBillings {
     BillingSettlement,
     BillingStreet,
     BillingStreetNumber,
-    CompanyId,
+    CompanyIid,
     
 }
 
@@ -70,5 +74,5 @@ enum CompanyBillings {
 #[derive(DeriveIden)]
 enum Companies {
     Table,
-    Id,
+    InternalId,
 }

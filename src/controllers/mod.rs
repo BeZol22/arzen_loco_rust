@@ -3,3 +3,5 @@ pub mod notes;
 pub mod user;
 
 pub mod companies;
+pub mod company_contacts;
+pub mod company_billings;

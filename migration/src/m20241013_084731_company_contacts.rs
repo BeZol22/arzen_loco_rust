@@ -21,12 +21,16 @@ impl MigrationTrait for Migration {
                     .col(string_null(CompanyContacts::ContactName))
                     .col(string_null(CompanyContacts::ContactPhoneNumber))
                     .col(string_null(CompanyContacts::ContactEmail))
-                    .col(integer(CompanyContacts::CompanyId))
+                    .col(
+                        ColumnDef::new(CompanyContacts::CompanyIid)  // Foreign key column for internal_id
+                            .uuid()  // Defines it as a UUID type
+                            .not_null(),
+                    )
                     .foreign_key(
                         ForeignKey::create()
                             .name("fk-company_contacts-companies")
-                            .from(CompanyContacts::Table, CompanyContacts::CompanyId)
-                            .to(Companies::Table, Companies::Id)
+                            .from(CompanyContacts::Table, CompanyContacts::CompanyIid)
+                            .to(Companies::Table, Companies::InternalId)
                             .on_delete(ForeignKeyAction::Cascade)
                             .on_update(ForeignKeyAction::Cascade),
                     )
@@ -50,7 +54,7 @@ enum CompanyContacts {
     ContactName,
     ContactPhoneNumber,
     ContactEmail,
-    CompanyId,
+    CompanyIid,
     
 }
 
@@ -58,5 +62,5 @@ enum CompanyContacts {
 #[derive(DeriveIden)]
 enum Companies {
     Table,
-    Id,
+    InternalId,
 }

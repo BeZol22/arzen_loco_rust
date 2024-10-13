@@ -5,10 +5,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
 #[sea_orm(table_name = "company_billings")]
+#[serde(rename_all = "camelCase")] // we anser with the Model to the Angular FE, and this way it receives camelCase instead of snake_case
 pub struct Model {
     pub created_at: DateTimeWithTimeZone,
     pub updated_at: DateTimeWithTimeZone,
     #[sea_orm(primary_key)]
+    #[serde(skip_serializing)]  // Skip id when serializing to JSON (--> FE never receives it)
     pub id: i32,
     #[sea_orm(unique)]
     pub internal_id: Uuid,
@@ -23,15 +25,15 @@ pub struct Model {
     pub billing_settlement: Option<String>,
     pub billing_street: Option<String>,
     pub billing_street_number: Option<String>,
-    pub company_id: i32,
+    pub company_iid: Uuid,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
     #[sea_orm(
         belongs_to = "super::companies::Entity",
-        from = "Column::CompanyId",
-        to = "super::companies::Column::Id",
+        from = "Column::CompanyIid",
+        to = "super::companies::Column::InternalId",
         on_update = "Cascade",
         on_delete = "Cascade"
     )]
