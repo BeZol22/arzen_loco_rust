@@ -1,7 +1,7 @@
 1. ### Companies table generation: ###
 
 - Internal Id as UUID
-- Company Name and Tax Number are unique
+- Company Name and Tax Number are unique (-> string^)
 - Postal Code and Street Number could be string, that's why not int
 
 # Command: #
@@ -13,10 +13,25 @@
 
 2. ### Company-Contacts table generation: ###
 
+- Internal Id as UUID
 - One company can have many contacts (One to many), contacts can have only one company (Many to one)
 - company:references --> the reference table is the "companies" table, but we have to use singular "company" here
 
 # Command: #
 1. cargo loco generate model company_contacts internal_id:uuid contact_name:string contact_phone_number:string contact_email:string company:references
+2. cargo loco db migrate
+3. cargo loco db entities (this was done automatically by step 2)
+
+
+
+3. ### Company-Billings table generation: ###
+
+- Internal Id as UUID
+- Billing Company Name and Billing Tax Number are unique (-> string^)
+- One company can have many billings (One to many), billing can have only one company (Many to one)
+- company:references --> the reference table is the "companies" table, but we have to use singular "company" here
+
+# Command: #
+1. cargo loco generate model company_billings internal_id:uuid billing_company_name:string^ billing_tax_number:string^ billing_email:string billing_country:string billing_province:string billing_postal_code:string billing_settlement:string billing_street:string billing_street_number:string company:references
 2. cargo loco db migrate
 3. cargo loco db entities (this was done automatically by step 2)
