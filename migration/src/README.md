@@ -1,5 +1,7 @@
 Documentation: https://loco.rs/docs/the-app/models/
 
+0. Inside PostgreSql enable UUID-generation: CREATE EXTENSION IF NOT EXISTS "uuid-ossp"; /need to add it to docker file?/
+
 1. ### Companies table generation: ###
 
 - Internal Id as UUID

@@ -11,7 +11,13 @@ impl MigrationTrait for Migration {
             .create_table(
                 table_auto_tz(CompanyContacts::Table)
                     .col(pk_auto(CompanyContacts::Id))
-                    .col(uuid_uniq(CompanyContacts::InternalId))
+                    .col(
+                        ColumnDef::new(CompanyContacts::InternalId)
+                            .uuid()  // Defines it as a UUID type column
+                            .not_null()
+                            .unique_key()
+                            .default(Expr::cust("uuid_generate_v4()")),  // PostgreSQL function to auto-generate UUID
+                    )
                     .col(string_null(CompanyContacts::ContactName))
                     .col(string_null(CompanyContacts::ContactPhoneNumber))
                     .col(string_null(CompanyContacts::ContactEmail))

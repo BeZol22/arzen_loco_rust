@@ -11,7 +11,13 @@ impl MigrationTrait for Migration {
             .create_table(
                 table_auto_tz(CompanyBillings::Table)
                     .col(pk_auto(CompanyBillings::Id))
-                    .col(uuid_uniq(CompanyBillings::InternalId))
+                    .col(
+                        ColumnDef::new(CompanyBillings::InternalId)
+                            .uuid()  // Defines it as a UUID type column
+                            .not_null()
+                            .unique_key()
+                            .default(Expr::cust("uuid_generate_v4()")),  // PostgreSQL function to auto-generate UUID
+                    )
                     .col(string_uniq(CompanyBillings::BillingCompanyName))
                     .col(string_uniq(CompanyBillings::BillingTaxNumber))
                     .col(string_null(CompanyBillings::BillingEmail))
