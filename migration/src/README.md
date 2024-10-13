@@ -10,9 +10,13 @@
 3. cargo loco db entities (this was done automatically by step 2)
 
 
-2. ### Contacts table generation: ###
 
+2. ### Company-Contacts table generation: ###
 
+- One company can have many contacts (One to many), contacts can have only one company (Many to one)
+- company:references --> the reference table is the "companies" table, but we have to use singular "company" here
 
 # Command: #
-cargo loco generate model
+1. cargo loco generate model company_contacts internal_id:uuid contact_name:string contact_phone_number:string contact_email:string company:references
+2. cargo loco db migrate
+3. cargo loco db entities (this was done automatically by step 2)

@@ -3,5 +3,6 @@
 pub mod prelude;
 
 pub mod companies;
+pub mod company_contacts;
 pub mod notes;
 pub mod users;

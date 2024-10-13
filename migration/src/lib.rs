@@ -6,6 +6,7 @@ mod m20220101_000001_users;
 mod m20231103_114510_notes;
 
 mod m20241013_081933_companies;
+mod m20241013_084731_company_contacts;
 pub struct Migrator;
 
 #[async_trait::async_trait]
@@ -15,6 +16,7 @@ impl MigratorTrait for Migrator {
             Box::new(m20220101_000001_users::Migration),
             Box::new(m20231103_114510_notes::Migration),
             Box::new(m20241013_081933_companies::Migration),
+            Box::new(m20241013_084731_company_contacts::Migration),
         ]
     }
 }
