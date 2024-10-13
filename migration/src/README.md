@@ -1,3 +1,5 @@
+Documentation: https://loco.rs/docs/the-app/models/
+
 1. ### Companies table generation: ###
 
 - Internal Id as UUID
@@ -5,6 +7,7 @@
 - Postal Code and Street Number could be string, that's why not int
 
 # Command: #
+
 1. cargo loco generate model companies internal_id:uuid company_name:string^ company_tax_number:string^ company_country:string company_province:string company_postal_code:string company_settlement:string company_street:string company_street_number:string company_email:string company_phone_number:string
 2. cargo loco db migrate
 3. cargo loco db entities (this was done automatically by step 2)
@@ -18,6 +21,7 @@
 - company:references --> the reference table is the "companies" table, but we have to use singular "company" here
 
 # Command: #
+
 1. cargo loco generate model company_contacts internal_id:uuid contact_name:string contact_phone_number:string contact_email:string company:references
 2. cargo loco db migrate
 3. cargo loco db entities (this was done automatically by step 2)
@@ -32,6 +36,7 @@
 - company:references --> the reference table is the "companies" table, but we have to use singular "company" here
 
 # Command: #
+
 1. cargo loco generate model company_billings internal_id:uuid billing_company_name:string^ billing_tax_number:string^ billing_email:string billing_country:string billing_province:string billing_postal_code:string billing_settlement:string billing_street:string billing_street_number:string company:references
 2. cargo loco db migrate
 3. cargo loco db entities (this was done automatically by step 2)
