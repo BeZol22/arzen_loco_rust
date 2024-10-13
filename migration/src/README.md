@@ -27,6 +27,43 @@ Documentation: https://loco.rs/docs/the-app/models/
 1. cargo loco generate model company_contacts internal_id:uuid contact_name:string contact_phone_number:string contact_email:string company:references
 2. cargo loco db migrate
 3. cargo loco db entities (this was done automatically by step 2)
+4. Inside migration file UUID field and reference fields has to be changed:
+
+For example
+
+from: .col(uuid_uniq(CompanyContacts::InternalId))
+to: .col(
+            ColumnDef::new(CompanyContacts::InternalId)
+                .uuid()  // Defines it as a UUID type column
+                .not_null()
+                .unique_key()
+                .default(Expr::cust("uuid_generate_v4()")),  // PostgreSQL function to auto-generate UUID
+        )
+
+AND
+
+from: .col(integer(CompanyContacts::CompanyId))
+        .foreign_key(
+            ForeignKey::create()
+                .name("fk-company_premises-companies")
+                .from(CompanyContacts::Table, CompanyContacts::CompanyId)
+                .to(Companies::Table, Companies::Id)
+                .on_delete(ForeignKeyAction::Cascade)
+                .on_update(ForeignKeyAction::Cascade),
+        )
+to: .col(
+        ColumnDef::new(CompanyContacts::CompanyIid)  // Foreign key column for internal_id
+            .uuid()  // Defines it as a UUID type
+            .not_null(),
+        )
+        .foreign_key(
+            ForeignKey::create()
+                .name("fk-company_contacts-companies")
+                .from(CompanyContacts::Table, CompanyContacts::CompanyIid)
+                .to(Companies::Table, Companies::InternalId)
+                .on_delete(ForeignKeyAction::Cascade)
+                .on_update(ForeignKeyAction::Cascade),
+        )
 
 
 

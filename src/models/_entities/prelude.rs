@@ -3,5 +3,6 @@
 pub use super::companies::Entity as Companies;
 pub use super::company_billings::Entity as CompanyBillings;
 pub use super::company_contacts::Entity as CompanyContacts;
+pub use super::company_premises::Entity as CompanyPremises;
 pub use super::notes::Entity as Notes;
 pub use super::users::Entity as Users;
