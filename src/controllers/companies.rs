@@ -5,6 +5,7 @@ use loco_rs::prelude::*;
 use axum::debug_handler;
 use serde::{Deserialize, Serialize};
 use crate::models::_entities::companies::{ActiveModel, Entity, Model, Column};
+use sea_orm::QueryOrder;
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")] // incoming camelCase like companyName will be transformed to company_name
@@ -46,7 +47,10 @@ async fn load_item(ctx: &AppContext, internal_id: Uuid) -> Result<Model> {
 
 #[debug_handler]
 pub async fn list(State(ctx): State<AppContext>) -> Result<Response> {
-    format::json(Entity::find().all(&ctx.db).await?)
+    format::json(
+        Entity::find()
+        .order_by_asc(Column::CompanyName)
+        .all(&ctx.db).await?)
 }
 
 #[debug_handler]
