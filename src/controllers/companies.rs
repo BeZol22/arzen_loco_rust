@@ -4,7 +4,7 @@
 use loco_rs::prelude::*;
 use axum::debug_handler;
 use serde::{Deserialize, Serialize};
-use crate::models::_entities::companies::{ActiveModel, Entity, Model, Column};
+use crate::{models::_entities::companies::{ActiveModel, Column, Entity, Model}, utils::datetime_utils::set_updated_at};
 use sea_orm::QueryOrder;
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -71,6 +71,10 @@ pub async fn update(
 ) -> Result<Response> {
     let item = load_item(&ctx, internal_id).await?;
     let mut item = item.into_active_model();
+    
+    // Use the utility function to set the updated_at field, passing the accessor
+    set_updated_at(&mut item, |item| &mut item.updated_at);
+
     params.update(&mut item);
     let item = item.update(&ctx.db).await?;
     format::json(item)

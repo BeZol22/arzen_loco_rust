@@ -4,7 +4,7 @@
 use loco_rs::prelude::*;
 use axum::debug_handler;
 use serde::{Deserialize, Serialize};
-use crate::models::_entities::company_billings::{ActiveModel, Entity, Model, Column};
+use crate::{models::_entities::company_billings::{ActiveModel, Column, Entity, Model}, utils::datetime_utils::set_updated_at};
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")] // incoming camelCase like companyName will be transformed to company_name
@@ -67,6 +67,7 @@ pub async fn update(
 ) -> Result<Response> {
     let item = load_item(&ctx, internal_id).await?;
     let mut item = item.into_active_model();
+    set_updated_at(&mut item, |item| &mut item.updated_at);
     params.update(&mut item);
     let item = item.update(&ctx.db).await?;
     format::json(item)
