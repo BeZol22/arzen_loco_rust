@@ -5,5 +5,6 @@ pub use super::company_billings::Entity as CompanyBillings;
 pub use super::company_contacts::Entity as CompanyContacts;
 pub use super::company_premises::Entity as CompanyPremises;
 pub use super::notes::Entity as Notes;
+pub use super::pesticides::Entity as Pesticides;
 pub use super::responsible_persons::Entity as ResponsiblePersons;
 pub use super::users::Entity as Users;
