@@ -93,3 +93,60 @@ to: .col(
 1. cargo loco generate model company_premises internal_id:uuid premise_company_name:string premise_country:string premise_email:string premise_phone_number:string premise_postal_code:string premise_province:string premise_settlement:string premise_street:string premise_street_number:string company:references
 2. cargo loco db migrate
 3. cargo loco db entities (this was done automatically by step 2)
+
+
+
+5. ### Responsible Persons table generation: ###
+
+- Internal Id as UUID
+
+# Command: #
+
+1. cargo loco generate model responsible_persons internal_id:uuid responsible_person_name:string responsible_person_license:string^
+2. cargo loco db migrate
+3. cargo loco db entities (this was done automatically by step 2)
+
+
+
+6. ### Pesticides table generation: ###
+
+- Internal Id as UUID
+- Standalone table
+
+# Command: #
+
+1. cargo loco generate model pesticides internal_id:uuid pesticide_name:string^ pesticide_type:string pesticide_substance_1:string pesticide_substance_2:string pesticide_substance_3:string pesticide_substance_4:string pesticide_antidote_1:string pesticide_antidote_2:string
+
+2. cargo loco db migrate
+3. cargo loco db entities (this was done automatically by step 2)
+
+
+
+7. ### Workdocuments table generation: ###
+
+- Internal Id as UUID
+- One to many relationship. A Workdocument can have only one Company, one Company can have multiple workdocuments
+- company:references --> the reference table is the "companies" table, but we have to use singular "company" here
+
+# Command: #
+
+1. cargo loco generate model workdocuments internal_id:uuid pesticide_name:string^ company:references
+
+cargo loco generate model workdocuments internal_id:uuid jobs_done:string client_name:string company:references responsible_person:references
+
+
+2. cargo loco db migrate
+3. cargo loco db entities (this was done automatically by step 2)
+
+
+
+8. ### Workcoduments_Pesticides Link Table generation: ###
+
+- Internal Id as UUID
+- Standalone table
+
+# Command: #
+
+1. cargo loco generate model --link workdocuments_pesticides workdocument:references pesticide:references
+2. cargo loco db migrate
+3. cargo loco db entities (this was done automatically by step 2)

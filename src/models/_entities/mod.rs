@@ -7,4 +7,5 @@ pub mod company_billings;
 pub mod company_contacts;
 pub mod company_premises;
 pub mod notes;
+pub mod responsible_persons;
 pub mod users;
