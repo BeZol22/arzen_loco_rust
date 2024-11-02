@@ -17,6 +17,10 @@ pub struct Model {
     #[sea_orm(unique)]
     pub pesticide_name: String,
     pub pesticide_type: Option<String>,
+    pub pesticide_subtype1: Option<String>,
+    pub pesticide_subtype2: Option<String>,
+    pub pesticide_subtype3: Option<String>,
+    pub pesticide_subtype4: Option<String>,
     pub pesticide_substance1: Option<String>,
     pub pesticide_substance2: Option<String>,
     pub pesticide_substance3: Option<String>,
@@ -24,6 +28,51 @@ pub struct Model {
     pub pesticide_antidote1: Option<String>,
     pub pesticide_antidote2: Option<String>,
 }
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct PesticideResponse {
+    pub created_at: DateTimeWithTimeZone,
+    pub updated_at: DateTimeWithTimeZone,
+    pub internal_id: Uuid,
+    pub pesticide_name: String,
+    pub pesticide_type: Option<String>,
+    pub pesticide_subtypes: Vec<String>,
+    pub pesticide_substance1: Option<String>,
+    pub pesticide_substance2: Option<String>,
+    pub pesticide_substance3: Option<String>,
+    pub pesticide_substance4: Option<String>,
+    pub pesticide_antidote1: Option<String>,
+    pub pesticide_antidote2: Option<String>,
+}
+
+impl Model {
+    pub fn to_response(&self) -> PesticideResponse {
+        PesticideResponse {
+            created_at: self.created_at,
+            updated_at: self.updated_at,
+            internal_id: self.internal_id,
+            pesticide_name: self.pesticide_name.clone(),
+            pesticide_type: self.pesticide_type.clone(),
+            pesticide_subtypes: vec![
+                self.pesticide_subtype1.clone(),
+                self.pesticide_subtype2.clone(),
+                self.pesticide_subtype3.clone(),
+                self.pesticide_subtype4.clone(),
+            ]
+            .into_iter()
+            .filter_map(|subtype| subtype) // Filter out None values
+            .collect(),
+            pesticide_substance1: self.pesticide_substance1.clone(),
+            pesticide_substance2: self.pesticide_substance2.clone(),
+            pesticide_substance3: self.pesticide_substance3.clone(),
+            pesticide_substance4: self.pesticide_substance4.clone(),
+            pesticide_antidote1: self.pesticide_antidote1.clone(),
+            pesticide_antidote2: self.pesticide_antidote2.clone(),
+        }
+    }
+}
+
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {}

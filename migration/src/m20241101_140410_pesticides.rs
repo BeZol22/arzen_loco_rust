@@ -20,6 +20,10 @@ impl MigrationTrait for Migration {
                     )
                     .col(string_uniq(Pesticides::PesticideName))
                     .col(string_null(Pesticides::PesticideType))
+                    .col(string_null(Pesticides::PesticideSubtype1))
+                    .col(string_null(Pesticides::PesticideSubtype2))
+                    .col(string_null(Pesticides::PesticideSubtype3))
+                    .col(string_null(Pesticides::PesticideSubtype4))
                     .col(string_null(Pesticides::PesticideSubstance1))
                     .col(string_null(Pesticides::PesticideSubstance2))
                     .col(string_null(Pesticides::PesticideSubstance3))
@@ -45,6 +49,10 @@ enum Pesticides {
     InternalId,
     PesticideName,
     PesticideType,
+    PesticideSubtype1,
+    PesticideSubtype2,
+    PesticideSubtype3,
+    PesticideSubtype4,
     PesticideSubstance1,
     PesticideSubstance2,
     PesticideSubstance3,

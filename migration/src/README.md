@@ -115,7 +115,7 @@ to: .col(
 
 # Command: #
 
-1. cargo loco generate model pesticides internal_id:uuid pesticide_name:string^ pesticide_type:string pesticide_substance_1:string pesticide_substance_2:string pesticide_substance_3:string pesticide_substance_4:string pesticide_antidote_1:string pesticide_antidote_2:string
+1. cargo loco generate model pesticides internal_id:uuid pesticide_name:string^ pesticide_type:string pesticide_subtype_1:string pesticide_subtype_2:string pesticide_subtype_3:string pesticide_subtype_4:string pesticide_substance_1:string pesticide_substance_2:string pesticide_substance_3:string pesticide_substance_4:string pesticide_antidote_1:string pesticide_antidote_2:string
 
 2. cargo loco db migrate
 3. cargo loco db entities (this was done automatically by step 2)
