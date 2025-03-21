@@ -10,3 +10,4 @@ pub mod notes;
 pub mod pesticides;
 pub mod responsible_persons;
 pub mod users;
+pub mod workdocuments;

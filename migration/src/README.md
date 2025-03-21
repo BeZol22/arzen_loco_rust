@@ -130,23 +130,6 @@ to: .col(
 
 # Command: #
 
-1. cargo loco generate model workdocuments internal_id:uuid pesticide_name:string^ company:references
-
-cargo loco generate model workdocuments internal_id:uuid jobs_done:string client_name:string company:references responsible_person:references
-
-
-2. cargo loco db migrate
-3. cargo loco db entities (this was done automatically by step 2)
-
-
-
-8. ### Workcoduments_Pesticides Link Table generation: ###
-
-- Internal Id as UUID
-- Standalone table
-
-# Command: #
-
-1. cargo loco generate model --link workdocuments_pesticides workdocument:references pesticide:references
+1. cargo loco generate model workdocuments internal_id:uuid serial_number:string^ client_name:string jobs_done:string pesticides:jsonb responsible_person:jsonb client_name_for_work_paper:string scope_of_work:string work_art:jsonb work_end_date:tstz work_start_date:tstz work_subject:jsonb work_subject_other:string company:references
 2. cargo loco db migrate
 3. cargo loco db entities (this was done automatically by step 2)

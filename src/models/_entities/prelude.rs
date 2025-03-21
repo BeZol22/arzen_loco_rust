@@ -8,3 +8,4 @@ pub use super::notes::Entity as Notes;
 pub use super::pesticides::Entity as Pesticides;
 pub use super::responsible_persons::Entity as ResponsiblePersons;
 pub use super::users::Entity as Users;
+pub use super::workdocuments::Entity as Workdocuments;

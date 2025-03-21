@@ -11,6 +11,7 @@ mod m20241013_091212_company_billings;
 mod m20241013_164100_company_premises;
 mod m20241101_130411_responsible_persons;
 mod m20241101_140410_pesticides;
+mod m20250321_104218_workdocuments;
 pub struct Migrator;
 
 #[async_trait::async_trait]
@@ -25,6 +26,7 @@ impl MigratorTrait for Migrator {
             Box::new(m20241013_164100_company_premises::Migration),
             Box::new(m20241101_130411_responsible_persons::Migration),
             Box::new(m20241101_140410_pesticides::Migration),
+            Box::new(m20250321_104218_workdocuments::Migration),
         ]
     }
 }
