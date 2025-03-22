@@ -30,6 +30,7 @@ pub struct Model {
     #[sea_orm(column_type = "JsonBinary", nullable)]
     pub work_subject: Option<Json>,
     pub work_subject_other: Option<String>,
+    #[serde(skip_serializing)]
     pub company_id: i32,
 }
 

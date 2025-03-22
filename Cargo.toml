@@ -21,6 +21,7 @@ async-trait = "0.1.74"
 tracing = "0.1.40"
 chrono = "0.4"
 validator = { version = "0.16" }
+futures = "0.3"
 sea-orm = { version = "1.0.0", features = [
   "sqlx-sqlite",
   "sqlx-postgres",

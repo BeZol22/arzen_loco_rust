@@ -37,11 +37,16 @@ impl Params {
     }
 }
 
-async fn load_item(ctx: &AppContext, internal_id: Uuid) -> Result<Model> {
+pub async fn load_item(ctx: &AppContext, internal_id: Uuid) -> Result<Model> {
     let item = Entity::find()
         .filter(Column::InternalId.eq(internal_id))  // Query by internal_id (UUID)
         .one(&ctx.db)
         .await?;
+    item.ok_or_else(|| Error::NotFound)
+}
+
+pub async fn load_by_id(ctx: &AppContext, id: i32) -> Result<Model> {
+    let item = Entity::find_by_id(id).one(&ctx.db).await?;
     item.ok_or_else(|| Error::NotFound)
 }
 
