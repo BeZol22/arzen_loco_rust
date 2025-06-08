@@ -205,6 +205,27 @@ pub async fn get_one(
 }
 
 #[debug_handler]
+pub async fn get_latest_by_company(
+    Path(company_id): Path<Uuid>,
+    State(ctx): State<AppContext>,
+) -> Result<Response> {
+    // Load the company to get the internal company_id (i32)
+    let company = crate::controllers::companies::load_item(&ctx, company_id).await?;
+
+    // Find the latest workdocument for the company
+    let item = Entity::find()
+        .filter(Column::CompanyId.eq(company.id))
+        .order_by_desc(Column::SerialNumber)
+        .limit(1)
+        .one(&ctx.db)
+        .await?;
+
+    let item = item.ok_or_else(|| Error::NotFound)?;
+    let response = WorkdocumentResponse::from_model(item, company.internal_id);
+    format::json(response)
+}
+
+#[debug_handler]
 pub async fn remove(Path(internal_id): Path<Uuid>, State(ctx): State<AppContext>) -> Result<Response> {
     load_item(&ctx, internal_id).await?.delete(&ctx.db).await?;
     format::empty()
@@ -218,4 +239,5 @@ pub fn routes() -> Routes {
         .add("/:internal_id", get(get_one))
         .add("/:internal_id", delete(remove))
         .add("/:internal_id", post(update))
+        .add("/latest/:company_id", get(get_latest_by_company))
 }
