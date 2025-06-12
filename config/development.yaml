@@ -127,8 +127,8 @@ server:
       precompressed: false
       folder:
         uri: "/"
-        path: "frontend/dist"
-      fallback: "frontend/dist/index.html"
+        path: "frontend/dist/angular-arzen/browser"
+      fallback: "frontend/dist/angular-arzen/browser/index.html"
     #
 
 # Worker Configuration
