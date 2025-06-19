@@ -22,7 +22,7 @@ pub struct Params {
     pub client_name_for_work_paper: Option<String>,
     pub scope_of_work: Option<String>,
     pub work_art: Option<Value>,
-    pub work_end_date: Option<DateTime<FixedOffset>>,
+    // pub work_end_date: Option<DateTime<FixedOffset>>,
     pub work_start_date: Option<DateTime<FixedOffset>>,
     pub work_subject: Option<Value>,
     pub work_subject_other: Option<String>,
@@ -40,7 +40,7 @@ impl Params {
         item.client_name_for_work_paper = Set(self.client_name_for_work_paper.clone());
         item.scope_of_work = Set(self.scope_of_work.clone());
         item.work_art = Set(self.work_art.clone());
-        item.work_end_date = Set(self.work_end_date.clone());
+        // item.work_end_date = Set(self.work_end_date.clone());
         item.work_start_date = Set(self.work_start_date.clone());
         item.work_subject = Set(self.work_subject.clone());
         item.work_subject_other = Set(self.work_subject_other.clone());
@@ -60,7 +60,7 @@ pub struct WorkdocumentResponse {
     pub client_name_for_work_paper: Option<String>,
     pub scope_of_work: Option<String>,
     pub work_art: Option<Value>,
-    pub work_end_date: Option<DateTime<FixedOffset>>,
+    // pub work_end_date: Option<DateTime<FixedOffset>>,
     pub work_start_date: Option<DateTime<FixedOffset>>,
     pub work_subject: Option<Value>,
     pub work_subject_other: Option<String>,
@@ -82,7 +82,7 @@ impl WorkdocumentResponse {
             client_name_for_work_paper: model.client_name_for_work_paper,
             scope_of_work: model.scope_of_work,
             work_art: model.work_art,
-            work_end_date: model.work_end_date.map(|dt| dt.into()),
+            // work_end_date: model.work_end_date.map(|dt| dt.into()),
             work_start_date: model.work_start_date.map(|dt| dt.into()),
             work_subject: model.work_subject,
             work_subject_other: model.work_subject_other,

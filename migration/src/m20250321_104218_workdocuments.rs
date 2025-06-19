@@ -26,7 +26,7 @@ impl MigrationTrait for Migration {
                     .col(string_null(Workdocuments::ClientNameForWorkPaper))
                     .col(string_null(Workdocuments::ScopeOfWork))
                     .col(json_binary_null(Workdocuments::WorkArt))
-                    .col(timestamp_with_time_zone_null(Workdocuments::WorkEndDate))
+                    // .col(timestamp_with_time_zone_null(Workdocuments::WorkEndDate))
                     .col(timestamp_with_time_zone_null(Workdocuments::WorkStartDate))
                     .col(json_binary_null(Workdocuments::WorkSubject))
                     .col(string_null(Workdocuments::WorkSubjectOther))
@@ -64,12 +64,11 @@ enum Workdocuments {
     ClientNameForWorkPaper,
     ScopeOfWork,
     WorkArt,
-    WorkEndDate,
+    // WorkEndDate,
     WorkStartDate,
     WorkSubject,
     WorkSubjectOther,
-    CompanyId,
-    
+    CompanyId
 }
 
 

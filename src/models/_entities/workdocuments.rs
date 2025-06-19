@@ -25,7 +25,7 @@ pub struct Model {
     pub scope_of_work: Option<String>,
     #[sea_orm(column_type = "JsonBinary", nullable)]
     pub work_art: Option<Json>,
-    pub work_end_date: Option<DateTimeWithTimeZone>,
+    // pub work_end_date: Option<DateTimeWithTimeZone>,
     pub work_start_date: Option<DateTimeWithTimeZone>,
     #[sea_orm(column_type = "JsonBinary", nullable)]
     pub work_subject: Option<Json>,
